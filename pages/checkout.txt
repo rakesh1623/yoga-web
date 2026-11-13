@@ -1,0 +1,183 @@
+// import React from 'react'
+import Head from 'next/head';
+// import './checkout.css'
+
+export default function Home(){
+  const makePayment = async () => {
+    const res = await initializeRazorpay();
+
+    if(res){
+      // console.log(res)
+      // console.log("Razorpay SDK loaded, proceeding to make payment");
+    }
+
+    if (!res) {
+      alert("Razorpay SDK Failed to load");
+      return;
+    }
+
+    const data = await fetch("http://localhost:3000/api/razorpay", { method: "POST", headers:{
+      "content-type":"application/json",
+      Accept:"application/json"
+    } })
+
+    let order = await data.json();
+    console.log(order);
+
+
+    var options = {
+      key: process.env.RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
+      name: "Akash Yoga",
+      currency:order.currency ,
+      amount: order.amount,
+      order_id: order.id,
+      description: "Thankyou for your test donation",
+      // image: "images/paylogo.png",
+      description: "Test Transaction",
+
+      
+      handler:  function (response) {
+        console.log("handler function is running");
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature);
+      },
+
+      prefill: { //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
+        "name": "Rakesh Ranjan Kumar", //your customer's name
+        "email": "rakesh@example.com", 
+        "contact": "9000090000"  //Provide the customer's phone number for better conversion rates 
+    },
+    notes: {
+        "address": "Razorpay Corporate Office"
+    },
+    theme: {
+        "color": "#3399cc"
+    },
+    
+    // callback_url: "https://eneqd3r9zrjok.x.pipedream.net/",
+    
+    
+  };
+  console.log("working")
+
+    const paymentObject = await new window.Razorpay(options);
+    // paymentObject.open();
+  
+    paymentObject.open();
+  };
+
+  const initializeRazorpay = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+
+      document.body.appendChild(script);
+    });
+  };
+
+  return(
+  <div>
+    
+    <Checkout onClick={makePayment} />
+  </div>
+
+  );
+}
+
+
+const Checkout = ({onClick}) => {
+  // console.log(subTotal);
+
+
+  <style jsx>{`
+            .svg{
+              height:20px;
+              width:30px;
+            }
+    `}</style>
+
+ 
+
+  
+
+  return (
+    <>
+      
+
+   
+      <Head>
+      <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
+      </Head>
+
+      <section className="text-gray-600 body-font relative">
+        <div className="container px-5 py-24 mx-auto">
+          <div className="flex flex-col text-center w-full mb-12">
+            <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Checkout</h1>
+            <p className="lg:w-2/3 mx-auto leading-relaxed text-base">"Discover Peace and Balance: Your Journey to Inner Harmony Begins Here.".</p>
+          </div>
+          <div className="lg:w-1/2 md:w-2/3 mx-auto">
+            <div className="flex flex-wrap -m-2">
+              <div className="p-2 w-1/2">
+                <div className="relative">
+                  <label htmlFor="name" className="leading-7 text-sm text-gray-600">Name</label>
+                  <input type="text" id="name" name="name" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                </div>
+              </div>
+              <div className="p-2 w-1/2">
+                <div className="relative">
+                  <label htmlFor="email" className="leading-7 text-sm text-gray-600">Email</label>
+                  <input type="email" id="email" name="email" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                </div>
+              </div>
+              <div className="p-2 w-full">
+                <div className="relative">
+                  <label htmlFor="message" className="leading-7 text-sm text-gray-600">Address</label>
+                  <textarea id="message" name="message" className="w-full resize-none bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 h-32 text-base outline-none text-gray-700 py-1 px-3  leading-6 transition-colors duration-200 ease-in-out"></textarea>
+                </div>
+              </div>
+              <div className="p-2 w-1/2">
+                <div className="relative">
+                  <label htmlFor="Phone" className="leading-7 text-sm text-gray-600">Phone</label>
+                  <input type="tel" id="Phone" name="Phone" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                </div>
+              </div>
+              <div className="p-2 w-1/2">
+                <div className="relative">
+                  <label htmlFor="City" className="leading-7 text-sm text-gray-600">City</label>
+                  <input type="text" id="City" name="City" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                </div>
+              </div>
+              <div className="p-2 w-1/2">
+                <div className="relative">
+                  <label htmlFor="State" className="leading-7 text-sm text-gray-600">State</label>
+                  <input type="text" id="State" name="State" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                </div>
+              </div>
+              <div className="p-2 w-1/2">
+                <div className="relative">
+                  <label htmlFor="pin" className="leading-7 text-sm text-gray-600">PIN</label>
+                  <input type="tel" id="pin" name="pin" maxLength={6} className=" w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                </div>
+              </div>
+              <div className="p-2 w-full">
+                <button className="flex mx-auto text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">Save Details</button>
+              </div>
+             
+            </div>
+          </div>
+        </div>
+
+      </section>
+                <button onClick={onClick} className="flex mx-auto text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">Pay Now</button>
+
+    </>
+  )
+}
