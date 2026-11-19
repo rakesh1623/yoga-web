@@ -8,7 +8,8 @@ const connectDb = (handler) => async (req, res) => {
         console.error("MongoDB connection failed:", error);
         return res.status(500).json({
             success: false,
-            message: "Database connection failed"
+            message: "Database connection failed",
+            code: error.code || error.name || "DB_CONNECTION_ERROR"
         });
     }
 };

@@ -40,7 +40,10 @@ const Login = () => {
         body: JSON.stringify(data),
       });
 
-      const response = await res.json();
+      const contentType = res.headers.get('content-type') || '';
+      const response = contentType.includes('application/json')
+        ? await res.json()
+        : { error: `Login server returned HTTP ${res.status}` };
       setLoading(false);
 
       if (response.success) {
