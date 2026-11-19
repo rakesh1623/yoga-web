@@ -58,9 +58,10 @@ const Login = () => {
           router.push('/');
         }, 500);
       } else {
-        toast.error(response.error || 'Invalid Credentials', {
+        const errorMessage = response.error || response.message || 'Invalid credentials';
+        toast.error(errorMessage, {
           position: 'top-center',
-          autoClose: 1000,
+          autoClose: 3500,
         });
       }
     } catch (error) {
