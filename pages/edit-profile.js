@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 const EditProfile = () => {
   const router = useRouter();
-  const { email, name } = router.query; 
+  const { email, name } = router.query;
 
   const [updatedName, setUpdatedName] = useState(name || "");
   const [updatedEmail, setUpdatedEmail] = useState(email || "");
@@ -34,22 +34,37 @@ const EditProfile = () => {
   };
 
   return (
-    <section className="bg-gray-50 py-16 px-6">
-      <div className="container mx-auto max-w-4xl bg-white shadow-lg rounded-lg p-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-8">Edit Profile</h1>
+    <section className="min-h-[65vh] bg-canvas px-4 py-12 text-ink sm:px-6">
+      <div className="mx-auto max-w-2xl rounded border border-[var(--color-border)] bg-surface p-6 shadow-sm sm:p-8">
+        <h1 className="mb-8 text-3xl font-bold text-ink">Edit Profile</h1>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-gray-600 mb-2">Name</label>
+            <label htmlFor="profile-name" className="mb-2 block font-semibold text-muted">Name</label>
             <input
+              id="profile-name"
               type="text"
-              className="w-full border border-gray-300 rounded-lg p-3"
+              autoComplete="name"
+              required
+              className="w-full rounded border border-[var(--color-border)] bg-canvas p-3 text-ink"
               value={updatedName}
               onChange={(e) => setUpdatedName(e.target.value)}
             />
           </div>
+          <div>
+            <label htmlFor="profile-email" className="mb-2 block font-semibold text-muted">Email</label>
+            <input
+              id="profile-email"
+              type="email"
+              autoComplete="email"
+              required
+              className="w-full rounded border border-[var(--color-border)] bg-canvas p-3 text-ink"
+              value={updatedEmail}
+              onChange={(e) => setUpdatedEmail(e.target.value)}
+            />
+          </div>
           <button
             type="submit"
-            className="w-full bg-green-500 text-white py-3 rounded-lg shadow-lg hover:bg-green-600 transition"
+            className="w-full rounded bg-[var(--color-primary)] py-3 font-semibold text-[var(--color-on-forest)] shadow-sm hover:opacity-90"
           >
             Save Changes
           </button>

@@ -2,10 +2,10 @@ import React from "react";
 
 const About = () => {
   return (
-    <section className="bg-gray-50 py-16 px-6">
+    <section className="bg-canvas px-6 py-16 text-ink">
       <div className="container mx-auto max-w-7xl">
-    
-        <h1 className="text-center text-5xl font-bold text-green-700">About Us</h1>
+
+        <h1 className="text-center text-5xl font-bold text-brand">About Aum Yoga</h1>
         <p className="text-center mt-4 text-gray-700 text-2xl">
           A journey to balance, peace, and a healthier you.
         </p>
@@ -80,7 +80,7 @@ const About = () => {
             <h2 className="text-4xl font-semibold text-gray-800">Our Vision</h2>
             <p className="mt-6 text-xl text-gray-700 leading-relaxed">
               To create a sanctuary where individuals can connect with their
-              true selves. At Akash Yoga, we aspire to inspire healthier
+              true selves. At Aum Yoga, we aspire to inspire healthier
               lifestyles through holistic practices and nurturing
               environments.
             </p>
@@ -103,8 +103,8 @@ const About = () => {
             today!
           </p>
           <a
-            href="/join-us"
-            className="inline-block mt-6 bg-green-500 text-white px-10 py-4 rounded-full text-xl shadow-lg hover:bg-green-600 transition"
+            href="/events"
+            className="mt-6 inline-block rounded bg-[var(--color-primary)] px-8 py-3 text-lg font-semibold text-[var(--color-on-forest)] shadow-md transition hover:opacity-90"
           >
             Join Now
           </a>

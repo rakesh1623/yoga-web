@@ -1,611 +1,204 @@
-import React from 'react'
-import { useEffect } from 'react'
-import Glide from "@glidejs/glide"
-import { useState } from 'react'
+import { useState } from 'react';
+import Link from 'next/link';
 
-const Intro = () => {
+const poses = [
+  {
+    title: 'Yogamudrasana',
+    description: 'A seated forward bend that encourages relaxation, flexibility, and focus.',
+    image: '/images/one_updated.jpeg',
+  },
+  {
+    title: 'Omkarasana',
+    description: 'A grounding posture that develops balance, strength, and steady breath.',
+    image: '/images/three_back_removed.png',
+  },
+  {
+    title: 'Garudasana',
+    description: 'A balancing pose that opens the shoulders and brings attention to the present.',
+    image: '/images/two_back_removed.png',
+  },
+  {
+    title: 'Adho Mukha Svanasana',
+    description: 'A full-body stretch that builds strength and supports mobility.',
+    image: '/images/four_back_removed.png',
+  },
+];
 
-  const [activeSlide, setActiveSlide] = useState(1);
+const courses = [
+  {
+    title: 'General Yoga',
+    image: '/images/generalyogamorning.png',
+    description:
+      'Build flexibility and strength through a balanced mix of asana, breathing, and relaxation. Suitable for a range of experience levels.',
+  },
+  {
+    title: 'Fat Loss Yoga',
+    image: '/images/fatlossmorning.png',
+    description:
+      'Dynamic sequences pair movement and breath to support stamina, mobility, and a consistent fitness practice.',
+  },
+  {
+    title: 'One-to-one Guidance',
+    image: '/images/one_to_one_counselling.jpg',
+    description:
+      'A focused session shaped around your goals, experience, and questions about building a sustainable practice.',
+  },
+];
 
-  useEffect(() => {
-
-    const slider = new Glide(".glide-08", {
-      type: "slider",
-      focusAt: "center",
-      perView: 1,
-      autoplay: 3000,
-      animationDuration: 700,
-      gap: 0,
-      classes: {
-        nav: {
-          active: "[&>*]:bg-wuiSlate-700",
-        },
-      },
-    }).mount()
-
-    return () => {
-      slider.destroy()
-    }
-  }, [])
-
-  const handleSlideChange = (newSlide) => {
-    setActiveSlide(newSlide);
-  };
-  const slideClass = (slideIndex) => {
-    return `slides ${activeSlide === slideIndex ? 'md:w-[600px] lg:w-[900px] mx-auto' : 'hidden'}`;
-  };
-  const dotClass = (dotIndex) => {
-    return `dots cursor-pointer w-4 h-3 m-auto ${
-      activeSlide === dotIndex ? 'bg-newhara ring ring-offset-2 ring-offset-newhara ring-[#fff0db] rounded-full' : 'bg-white rounded-full'
-    }`;
-  };
-
+export default function Intro() {
+  const [activeCourse, setActiveCourse] = useState(0);
+  const course = courses[activeCourse];
 
   return (
-    <>
-      <div className="hidden md:block  inmain relative -mt-52  py-3">
-
-        <h1 className='text-center font-second text-6xl mb-16 '>Yoga is for everyone</h1>
-        <div className="imagesDiv py-3  md:space-x-16 mb-8 flex md:flex-row flex-col justify-center items-center  w-fit mx-auto">
-
-          <section className=" mx-auto  px-0  md:px-0 ">
-            <section className="grid  md:grid-cols-4 grid-cols-1 gap-5 px-20 ">
-
-              <article className="mx-auto  shadow-xl bg-cover bg-center transform duration-500 hover:-translate-y-2 cursor-pointer group" style={{ backgroundImage: 'url("images/one_updated.jpeg")' }}>
-                <div className="bg-newhara bg-opacity-10 px-10 flex flex-wrap flex-col md:28 md:w-56 lg:w-fit lg:pt-48 hover:bg-opacity-80 transform duration-300">
-                  <h1 className="text-black w-fit rounded-xl font-semibold bg-[#fff0db] p-3 text-base md:text-base lg:text-2xl md:mb-2 lg:mb-5 transform lg:translate-y-28 md:translate-y-48 group-hover:translate-y-0 duration-300">
-                  Yogamudrasana
-                  </h1>
-                  <div className="w-16 h-2 bg-black rounded-full mb-5 transform lg:translate-y-24 md:translate-y-48 group-hover:translate-y-0 duration-300">
-                  </div>
-                  <p className="opacity-0 text-white text-xl group-hover:opacity-80 transform duration-500 pb-3">
-                  A seated forward bend that promotes relaxation, improves flexibility, calms the mind, and enhances focus and inner awareness.
-                  </p>
-                </div>
-              </article>
-              <article className="mx-auto  shadow-xl bg-cover bg-center transform duration-500 hover:-translate-y-2 cursor-pointer group" style={{ backgroundImage: 'url("images/three_back_removed.png")' }}>
-                <div className="bg-newhara bg-opacity-10 px-10 flex flex-wrap flex-col md:28 md:w-56 lg:w-fit lg:pt-48 hover:bg-opacity-80 transform duration-300">
-                  <h1 className="text-black w-fit rounded-xl font-semibold bg-[#fff0db] p-3 text-base md:text-base lg:text-2xl md:mb-2 lg:mb-5 transform lg:translate-y-28 md:translate-y-48 group-hover:translate-y-0 duration-300">
-                  Omkarasana 
-                  </h1>
-                  <div className="w-16 h-2 bg-black rounded-full mb-5 transform lg:translate-y-24 md:translate-y-48 group-hover:translate-y-0 duration-300">
-                  </div>
-                  <p className="opacity-0 text-white text-xl group-hover:opacity-80 transform duration-500 pb-3">
-                  A grounding pose that strengthens thighs and improves balance, mimicking sitting on an imaginary chair.
-                  </p>
-                </div>
-              </article>
-              <article className="mx-auto  shadow-xl bg-cover bg-center transform duration-500 hover:-translate-y-2 cursor-pointer group" style={{ backgroundImage: 'url("images/two_back_removed.png")' }}>
-                <div className="bg-newhara bg-opacity-10 px-10 flex flex-wrap flex-col md:28 md:w-56 lg:w-fit lg:pt-48 hover:bg-opacity-80 transform duration-300">
-                  <h1 className="text-black w-fit rounded-xl font-semibold bg-[#fff0db] p-3 text-base md:text-base lg:text-2xl md:mb-2 lg:mb-5 transform lg:translate-y-28 md:translate-y-48 group-hover:translate-y-0 duration-300">
-                  Garudasana 
-                  </h1>
-                  <div className="w-16 h-2 bg-black rounded-full mb-5 transform lg:translate-y-24 md:translate-y-48 group-hover:translate-y-0 duration-300">
-                  </div>
-                  <p className="opacity-0 text-white text-xl group-hover:opacity-80 transform duration-500 pb-3">
-                  Enhances balance, stretches shoulders, strengthens legs, improves posture, boosts concentration, and symbolizes focused energy and grace.
-                  </p>
-                </div>
-              </article>
-              <article className="mx-auto  shadow-xl bg-cover bg-center transform duration-500 hover:-translate-y-2 cursor-pointer group" style={{ backgroundImage: 'url("images/four_back_removed.png")' }}>
-                <div className="bg-newhara bg-opacity-10 px-10 flex flex-wrap flex-col md:28 md:w-56 lg:w-fit lg:pt-48 hover:bg-opacity-80 transform duration-300">
-                  <h1 className="text-black w-fit rounded-xl font-semibold bg-[#fff0db] p-3 text-base md:text-base lg:text-2xl md:mb-2 lg:mb-5 transform lg:translate-y-28 md:translate-y-48 group-hover:translate-y-0 duration-300">
-                  Adho Mukha Svanasana
-                  </h1>
-                  <div className="w-16 h-2 bg-black rounded-full mb-5 transform lg:translate-y-24 md:translate-y-48 group-hover:translate-y-0 duration-300">
-                  </div>
-                  <p className="opacity-0 text-white text-xl group-hover:opacity-80 transform duration-500 pb-3">
-                  A rejuvenating pose that stretches the spine, strengthens arms, boosts circulation, energizes the body, and enhances core stability.
-                  </p>
-                </div>
-              </article>
-            </section>
-          </section>
+    <main className="bg-canvas text-ink">
+      <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 md:py-20">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand">
+          Move with intention
+        </p>
+        <h2 className="mb-8 text-3xl font-semibold sm:text-4xl">
+          Yoga is for everyone
+        </h2>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {poses.map((pose) => (
+            <article
+              key={pose.title}
+              className="group overflow-hidden rounded border border-[var(--color-border)] bg-surface"
+            >
+              <div className="aspect-[4/3] overflow-hidden bg-[var(--color-surface-raised)]">
+                <img
+                  src={pose.image}
+                  alt={pose.title}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
+              <div className="p-5">
+                <h3 className="text-xl font-semibold">{pose.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-muted">
+                  {pose.description}
+                </p>
+              </div>
+            </article>
+          ))}
         </div>
-      </div>
+      </section>
 
-      <div className="courses mx-3">
-        <div className="mainbox">
-          <h1 className='text-center font-second text-5xl md:text-6xl mb-5 md:mb-16 md:mt-5'>Our Courses</h1>
-
-          <div className={slideClass(1)}>
-            <div className="flex justify- items-center flex-col md:flex-row m-auto bg-newhara rounded-2xl py-20 px-6 border-2 border-black">
-              <div className="sideImage  relative  md:-left-24  inline-block">
-                <img className='h-56 md:w-64 lg:w-72 border-4 border-black shadow-bacha shadow-2xl rounded-3xl' src="images/generalyogamorning.png" alt="" />
-              </div>
-              <div className="content  w-fit mx-auto -right-20 relaive -top-20 ">
-                <h1 className='text-center py-8 text-5xl text-white'> General Yoga </h1>
-                <span className=' text-white text-base'>
-                General Yoga focuses on improving overall health and well-being through a blend of asanas, breathing techniques, and relaxation. It enhances flexibility, builds strength, and reduces stress. Suitable for all fitness levels, it promotes harmony between mind and body, improving posture, boosting energy, and fostering mindfulness for a healthier lifestyle.
-                </span>
-
-              </div>
-            </div>
+      <section className="border-y border-[var(--color-border)] bg-surface px-5 py-16 sm:px-8 md:py-20">
+        <div className="mx-auto max-w-7xl">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand">
+            Find your rhythm
+          </p>
+          <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <h2 className="text-3xl font-semibold sm:text-4xl">
+              Explore our courses
+            </h2>
+            <Link
+              href="/events"
+              className="font-semibold text-brand underline underline-offset-4"
+            >
+              All classes
+            </Link>
           </div>
-          <div className={slideClass(2)}>
-            <div className="flex justify- items-center flex-col md:flex-row m-auto bg-newhara rounded-2xl py-20 px-6 border-2 border-black">
-              <div className="sideImage  relative  md:-left-24  inline-block">
-                <img className='h-56 md:w-64 lg:w-72 border-4 border-black shadow-bacha shadow-2xl rounded-3xl' src="images/fatlossmorning.png" alt="" />
-              </div>
-              <div className="content  w-fit mx-auto -right-20 relaive -top-20 ">
-                <h1 className='text-center py-8 text-5xl text-white'>Fat Loss Yoga</h1>
-                <span className=' text-white text-base'>
-                Fat Loss Yoga incorporates dynamic sequences like Sun Salutations and power yoga to burn calories and shed excess fat. It combines physical activity with breath control to improve metabolism, tone muscles, and support weight management. By boosting flexibility and endurance, it not only aids fat loss but also promotes long-term fitness and well-being.
-                </span>
-
-              </div>
-            </div>
-          </div>
-          <div className={slideClass(3)}>
-            <div className="flex justify- items-center flex-col md:flex-row m-auto bg-newhara rounded-2xl py-20 px-6 border-2 border-black">
-              <div className="sideImage  relative  md:-left-24  inline-block">
-                <img className='h-56 md:w-64 lg:w-72 border-4 border-black shadow-bacha shadow-2xl rounded-3xl' src="images/one_to_one_counselling.jpg" alt="" />
-              </div>
-              <div className="content  w-fit mx-auto -right-20 relaive -top-20 ">
-                <h1 className='text-center  py-8 text-5xl text-white'>Counselling</h1>
-                <span className=' text-white text-base'>
-                Counseling provides emotional support and guidance to navigate life's challenges effectively. It fosters self-awareness, builds resilience, and helps develop coping strategies for stress, anxiety, or personal issues. Through open conversations and tailored techniques, counseling empowers individuals to achieve mental clarity, improve relationships, and cultivate a balanced, fulfilling life.
-                </span>
-
-              </div>
-            </div>
-          </div>
-          <div className="dotsDiv flex w-20 m-auto relative -top-16 space-x-4 ">
-            <div id='one' onClick={() => handleSlideChange(1)} className={dotClass(1)}></div>
-            <div id='two' onClick={() => handleSlideChange(2)} className={dotClass(2)}></div>
-            <div id='three' onClick={() => handleSlideChange(3)} className={dotClass(3)}></div>
-          </div>
-        </div>
-      </div>
-
-      <div className="traine mx-4">
-        <h1 className='text-center font-second text-5xl md:text-6xl my-16 '>Our Trainer</h1>
-
-        <div className="justify-center items-center  m-auto flex flex-col md:flex-row bg-clip-border rounded-xl bg-newhara/40 text-gray-700 shadow-md w-full max-w-[48rem] ">
           <div
-            className="relative w-2/5 m-0 overflow-hidden text-gray-700  rounded-r-none bg-clip-border rounded-xl shrink-0">
-            <img src="images/standing_teacher.jpg"
-              alt="card-image" className="object-cover p-8  w-full h-full" />
-          </div>
-          <div className="p-6">
-            <h4 className="block text-black  mb-8 font-sans text-4xl antialiased font-bold leading-snug tracking-normal   text-blue-gray-900">
-            Aryan Vedanta
-            </h4>
-            <p className="block mb-8 font-sans text-base antialiased  leading-relaxed font-semibold text-gray-700">
-            Aryan Vedanta is a certified yoga trainer with over 10 years of experience in teaching mindfulness, flexibility, and holistic health. He specializes in Hatha Yoga, Vinyasa Flow, and meditation techniques designed to help people achieve mental clarity and physical wellness. Aryan's mission is to inspire individuals to lead healthier and more balanced lives through the transformative power of yoga.
-            </p>
-          </div>
-        </div>
-
-        <h1 className='text-center font-second text-5xl md:text-6xl mt-24 mb-16'>TESTIMONIALS</h1>
-        <div className=" md:w-96 m-auto mt-20 relative  glide-08">
-          <div
-            className="overflow-hidden text-center bg-white rounded shadow-2xl text-slate-500 shadow-slate-200 "
-            data-glide-el="track"
+            className="mb-6 flex flex-wrap gap-2"
+            role="tablist"
+            aria-label="Yoga courses"
           >
-            <ul className="whitespace-no-wrap flex-no-wrap [backface-visibility: hidden] [transform-style: preserve-3d] [touch-action: pan-Y] [will-change: transform] relative flex w-full overflow-hidden p-0">
-              <li>
-                <div className="w-full">
-                 
-                  <div className="overflow-hidden ">
-                    <div className="relative p-6">
-                      <figure className="relative z-10">
-                        <blockquote className="p-6 text-lg leading-loose lg:text-xl">
-                          <p>
-                            Wind-ui is probably one of the best libraries I've
-                            come across. Good looking, easy to use and above all
-                            super accessible. If you haven't tried it yet just do
-                            so!
-                          </p>
-                        </blockquote>
-                        <figcaption className="flex flex-col items-center gap-2 p-6 text-sm text-emerald-500">
-                          <span
-                            className="flex gap-1 text-amber-400"
-                            role="img"
-                            aria-label="Rating: 3 out of 5 stars"
-                          >
-                            <span aria-hidden="true">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                            <span aria-hidden="true">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                            <span aria-hidden="true">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                            <span aria-hidden="true">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                            <span aria-hidden="true">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                          <div className="flex items-center gap-4 pt-4 text-sm text-left text-emerald-500">
-                            <img
-                              src="https://i.pravatar.cc/40?img=11"
-                              alt="user name"
-                              title="user name"
-                              width="48"
-                              height="48"
-                              className="max-w-full rounded-full shrink-0"
-                            />
-                            <div className="flex flex-col gap-1">
-                              <span className="font-bold uppercase">
-                                Bill Gates
-                              </span>
-                              <cite className="not-italic">
-                                <a href="#">CEO, Microsoft</a>
-                              </cite>
-                            </div>
-                          </div>
-                        </figcaption>
-                      </figure>
-                      <svg
-                        aria-hidden="true"
-                        className="absolute z-0 h-16 left-6 top-6"
-                        viewBox="0 0 17 12"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M2.79187 3.83333C2.66179 3.83333 2.53696 3.85316 2.41271 3.87125C2.45296 3.73591 2.49437 3.59825 2.56087 3.47458C2.62737 3.29491 2.73121 3.13916 2.83446 2.98225C2.92079 2.8125 3.07304 2.69758 3.18504 2.55233C3.30229 2.41116 3.46212 2.31725 3.58871 2.2C3.71296 2.0775 3.87571 2.01625 4.00521 1.92991C4.14054 1.85233 4.25837 1.76658 4.38437 1.72575L4.69879 1.59625L4.97529 1.48133L4.69237 0.35083L4.34412 0.43483C4.23271 0.46283 4.09679 0.495496 3.94221 0.53458C3.78412 0.563746 3.61554 0.643663 3.42771 0.71658C3.24221 0.799413 3.02754 0.855413 2.82804 0.988413C2.62737 1.11558 2.39579 1.22175 2.19162 1.39208C1.99387 1.56766 1.75529 1.71991 1.57912 1.94333C1.38662 2.15216 1.19646 2.3715 1.04887 2.62116C0.877957 2.85916 0.761873 3.1205 0.639373 3.37891C0.52854 3.63733 0.43929 3.90158 0.366373 4.15825C0.228123 4.67275 0.16629 5.16158 0.142373 5.57983C0.12254 5.99866 0.134207 6.34691 0.158707 6.59891C0.167457 6.71791 0.18379 6.83341 0.195457 6.91333L0.21004 7.01133L0.225207 7.00783C0.328959 7.49248 0.567801 7.93786 0.914102 8.29243C1.2604 8.64701 1.70001 8.89631 2.18208 9.01148C2.66415 9.12665 3.16897 9.10299 3.63815 8.94323C4.10733 8.78348 4.52169 8.49416 4.83331 8.10874C5.14493 7.72333 5.34107 7.25757 5.39903 6.76534C5.457 6.27311 5.37443 5.77452 5.16087 5.32726C4.94731 4.88 4.61149 4.50233 4.19225 4.23796C3.77302 3.97358 3.28751 3.8333 2.79187 3.83333V3.83333ZM9.20854 3.83333C9.07846 3.83333 8.95362 3.85316 8.82937 3.87125C8.86962 3.73591 8.91104 3.59825 8.97754 3.47458C9.04404 3.29491 9.14787 3.13916 9.25112 2.98225C9.33746 2.8125 9.48971 2.69758 9.60171 2.55233C9.71896 2.41116 9.87879 2.31725 10.0054 2.2C10.1296 2.0775 10.2924 2.01625 10.4219 1.92991C10.5572 1.85233 10.675 1.76658 10.801 1.72575L11.1155 1.59625L11.392 1.48133L11.109 0.35083L10.7608 0.43483C10.6494 0.46283 10.5135 0.495496 10.3589 0.53458C10.2008 0.563746 10.0322 0.643663 9.84437 0.71658C9.65946 0.799997 9.44421 0.855413 9.24471 0.988997C9.04404 1.11616 8.81246 1.22233 8.60829 1.39266C8.41054 1.56825 8.17196 1.7205 7.99579 1.94333C7.80329 2.15216 7.61312 2.3715 7.46554 2.62116C7.29462 2.85916 7.17854 3.1205 7.05604 3.37891C6.94521 3.63733 6.85596 3.90158 6.78304 4.15825C6.64479 4.67275 6.58296 5.16158 6.55904 5.57983C6.53921 5.99866 6.55087 6.34691 6.57537 6.59891C6.58412 6.71791 6.60046 6.83341 6.61212 6.91333L6.62671 7.01133L6.64187 7.00783C6.74563 7.49248 6.98447 7.93786 7.33077 8.29243C7.67707 8.64701 8.11668 8.89631 8.59875 9.01148C9.08081 9.12665 9.58563 9.10299 10.0548 8.94323C10.524 8.78348 10.9384 8.49416 11.25 8.10874C11.5616 7.72333 11.7577 7.25757 11.8157 6.76534C11.8737 6.27311 11.7911 5.77452 11.5775 5.32726C11.364 4.88 11.0282 4.50233 10.6089 4.23796C10.1897 3.97358 9.70417 3.8333 9.20854 3.83333V3.83333Z"
-                          className="fill-emerald-50"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  
-                </div>
-              </li>
-              <li>
-                <div className="w-full">
-                  {/*                    <!-- Start Testimonial --> */}
-                  <div className="overflow-hidden">
-                    <div className="relative p-6">
-                      <figure className="relative z-10">
-                        <blockquote className="p-6 text-lg leading-loose lg:text-xl">
-                          <p>
-                            Wind-ui components come with proper attributes to
-                            ensure full accessibility with the WAI-ARIA standards.
-                            That's just awesome for a free ui library.
-                          </p>
-                        </blockquote>
-                        <figcaption className="flex flex-col items-center gap-2 p-6 text-sm text-emerald-500">
-                          <span
-                            className="flex gap-1 text-amber-400"
-                            role="img"
-                            aria-label="Rating: 3 out of 5 stars"
-                          >
-                            <span aria-hidden="true">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                            <span aria-hidden="true">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                            <span aria-hidden="true">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                            <span aria-hidden="true">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                            <span aria-hidden="true">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                          <div className="flex items-center gap-4 pt-4 text-sm text-left text-emerald-500">
-                            <img
-                              src="https://i.pravatar.cc/40?img=25"
-                              alt="user name"
-                              title="user name"
-                              width="48"
-                              height="48"
-                              className="max-w-full rounded-full shrink-0"
-                            />
-                            <div className="flex flex-col gap-1">
-                              <span className="font-bold uppercase">
-                                Jane Smith
-                              </span>
-                              <cite className="not-italic">
-                                <a href="#">WAI-ARIA, Representative</a>
-                              </cite>
-                            </div>
-                          </div>
-                        </figcaption>
-                      </figure>
-                      <svg
-                        aria-hidden="true"
-                        className="absolute z-0 h-16 left-6 top-6"
-                        viewBox="0 0 17 12"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M2.79187 3.83333C2.66179 3.83333 2.53696 3.85316 2.41271 3.87125C2.45296 3.73591 2.49437 3.59825 2.56087 3.47458C2.62737 3.29491 2.73121 3.13916 2.83446 2.98225C2.92079 2.8125 3.07304 2.69758 3.18504 2.55233C3.30229 2.41116 3.46212 2.31725 3.58871 2.2C3.71296 2.0775 3.87571 2.01625 4.00521 1.92991C4.14054 1.85233 4.25837 1.76658 4.38437 1.72575L4.69879 1.59625L4.97529 1.48133L4.69237 0.35083L4.34412 0.43483C4.23271 0.46283 4.09679 0.495496 3.94221 0.53458C3.78412 0.563746 3.61554 0.643663 3.42771 0.71658C3.24221 0.799413 3.02754 0.855413 2.82804 0.988413C2.62737 1.11558 2.39579 1.22175 2.19162 1.39208C1.99387 1.56766 1.75529 1.71991 1.57912 1.94333C1.38662 2.15216 1.19646 2.3715 1.04887 2.62116C0.877957 2.85916 0.761873 3.1205 0.639373 3.37891C0.52854 3.63733 0.43929 3.90158 0.366373 4.15825C0.228123 4.67275 0.16629 5.16158 0.142373 5.57983C0.12254 5.99866 0.134207 6.34691 0.158707 6.59891C0.167457 6.71791 0.18379 6.83341 0.195457 6.91333L0.21004 7.01133L0.225207 7.00783C0.328959 7.49248 0.567801 7.93786 0.914102 8.29243C1.2604 8.64701 1.70001 8.89631 2.18208 9.01148C2.66415 9.12665 3.16897 9.10299 3.63815 8.94323C4.10733 8.78348 4.52169 8.49416 4.83331 8.10874C5.14493 7.72333 5.34107 7.25757 5.39903 6.76534C5.457 6.27311 5.37443 5.77452 5.16087 5.32726C4.94731 4.88 4.61149 4.50233 4.19225 4.23796C3.77302 3.97358 3.28751 3.8333 2.79187 3.83333V3.83333ZM9.20854 3.83333C9.07846 3.83333 8.95362 3.85316 8.82937 3.87125C8.86962 3.73591 8.91104 3.59825 8.97754 3.47458C9.04404 3.29491 9.14787 3.13916 9.25112 2.98225C9.33746 2.8125 9.48971 2.69758 9.60171 2.55233C9.71896 2.41116 9.87879 2.31725 10.0054 2.2C10.1296 2.0775 10.2924 2.01625 10.4219 1.92991C10.5572 1.85233 10.675 1.76658 10.801 1.72575L11.1155 1.59625L11.392 1.48133L11.109 0.35083L10.7608 0.43483C10.6494 0.46283 10.5135 0.495496 10.3589 0.53458C10.2008 0.563746 10.0322 0.643663 9.84437 0.71658C9.65946 0.799997 9.44421 0.855413 9.24471 0.988997C9.04404 1.11616 8.81246 1.22233 8.60829 1.39266C8.41054 1.56825 8.17196 1.7205 7.99579 1.94333C7.80329 2.15216 7.61312 2.3715 7.46554 2.62116C7.29462 2.85916 7.17854 3.1205 7.05604 3.37891C6.94521 3.63733 6.85596 3.90158 6.78304 4.15825C6.64479 4.67275 6.58296 5.16158 6.55904 5.57983C6.53921 5.99866 6.55087 6.34691 6.57537 6.59891C6.58412 6.71791 6.60046 6.83341 6.61212 6.91333L6.62671 7.01133L6.64187 7.00783C6.74563 7.49248 6.98447 7.93786 7.33077 8.29243C7.67707 8.64701 8.11668 8.89631 8.59875 9.01148C9.08081 9.12665 9.58563 9.10299 10.0548 8.94323C10.524 8.78348 10.9384 8.49416 11.25 8.10874C11.5616 7.72333 11.7577 7.25757 11.8157 6.76534C11.8737 6.27311 11.7911 5.77452 11.5775 5.32726C11.364 4.88 11.0282 4.50233 10.6089 4.23796C10.1897 3.97358 9.70417 3.8333 9.20854 3.83333V3.83333Z"
-                          className="fill-emerald-50"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  {/*                    <!-- End Testimonial --> */}
-                </div>
-              </li>
-              <li>
-                <div className="w-full">
-                  {/*                    <!-- Start Testimonial --> */}
-                  <div className="overflow-hidden">
-                    <div className="relative p-6">
-                      <figure className="relative z-10">
-                        <blockquote className="p-6 text-lg leading-loose lg:text-xl">
-                          <p>
-                            You can easily communicate with Wind-ui's team for
-                            support through their discord channel. They are
-                            responsive and ultra helpful guys!
-                          </p>
-                        </blockquote>
-                        <figcaption className="flex flex-col items-center gap-2 p-6 text-sm text-emerald-500">
-                          <span
-                            className="flex gap-1 text-amber-400"
-                            role="img"
-                            aria-label="Rating: 3 out of 5 stars"
-                          >
-                            <span aria-hidden="true">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                            <span aria-hidden="true">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                            <span aria-hidden="true">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                            <span aria-hidden="true">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                            <span aria-hidden="true">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                          <div className="flex items-center gap-4 pt-4 text-sm text-left text-emerald-500">
-                            <img
-                              src="https://i.pravatar.cc/40?img=7"
-                              alt="user name"
-                              title="user name"
-                              width="48"
-                              height="48"
-                              className="max-w-full rounded-full shrink-0"
-                            />
-                            <div className="flex flex-col gap-1">
-                              <span className="font-bold uppercase">
-                                Arnold Jones
-                              </span>
-                              <cite className="not-italic">
-                                <a href="#">Software Engineer</a>
-                              </cite>
-                            </div>
-                          </div>
-                        </figcaption>
-                      </figure>
-                      <svg
-                        aria-hidden="true"
-                        className="absolute z-0 h-16 left-6 top-6"
-                        viewBox="0 0 17 12"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M2.79187 3.83333C2.66179 3.83333 2.53696 3.85316 2.41271 3.87125C2.45296 3.73591 2.49437 3.59825 2.56087 3.47458C2.62737 3.29491 2.73121 3.13916 2.83446 2.98225C2.92079 2.8125 3.07304 2.69758 3.18504 2.55233C3.30229 2.41116 3.46212 2.31725 3.58871 2.2C3.71296 2.0775 3.87571 2.01625 4.00521 1.92991C4.14054 1.85233 4.25837 1.76658 4.38437 1.72575L4.69879 1.59625L4.97529 1.48133L4.69237 0.35083L4.34412 0.43483C4.23271 0.46283 4.09679 0.495496 3.94221 0.53458C3.78412 0.563746 3.61554 0.643663 3.42771 0.71658C3.24221 0.799413 3.02754 0.855413 2.82804 0.988413C2.62737 1.11558 2.39579 1.22175 2.19162 1.39208C1.99387 1.56766 1.75529 1.71991 1.57912 1.94333C1.38662 2.15216 1.19646 2.3715 1.04887 2.62116C0.877957 2.85916 0.761873 3.1205 0.639373 3.37891C0.52854 3.63733 0.43929 3.90158 0.366373 4.15825C0.228123 4.67275 0.16629 5.16158 0.142373 5.57983C0.12254 5.99866 0.134207 6.34691 0.158707 6.59891C0.167457 6.71791 0.18379 6.83341 0.195457 6.91333L0.21004 7.01133L0.225207 7.00783C0.328959 7.49248 0.567801 7.93786 0.914102 8.29243C1.2604 8.64701 1.70001 8.89631 2.18208 9.01148C2.66415 9.12665 3.16897 9.10299 3.63815 8.94323C4.10733 8.78348 4.52169 8.49416 4.83331 8.10874C5.14493 7.72333 5.34107 7.25757 5.39903 6.76534C5.457 6.27311 5.37443 5.77452 5.16087 5.32726C4.94731 4.88 4.61149 4.50233 4.19225 4.23796C3.77302 3.97358 3.28751 3.8333 2.79187 3.83333V3.83333ZM9.20854 3.83333C9.07846 3.83333 8.95362 3.85316 8.82937 3.87125C8.86962 3.73591 8.91104 3.59825 8.97754 3.47458C9.04404 3.29491 9.14787 3.13916 9.25112 2.98225C9.33746 2.8125 9.48971 2.69758 9.60171 2.55233C9.71896 2.41116 9.87879 2.31725 10.0054 2.2C10.1296 2.0775 10.2924 2.01625 10.4219 1.92991C10.5572 1.85233 10.675 1.76658 10.801 1.72575L11.1155 1.59625L11.392 1.48133L11.109 0.35083L10.7608 0.43483C10.6494 0.46283 10.5135 0.495496 10.3589 0.53458C10.2008 0.563746 10.0322 0.643663 9.84437 0.71658C9.65946 0.799997 9.44421 0.855413 9.24471 0.988997C9.04404 1.11616 8.81246 1.22233 8.60829 1.39266C8.41054 1.56825 8.17196 1.7205 7.99579 1.94333C7.80329 2.15216 7.61312 2.3715 7.46554 2.62116C7.29462 2.85916 7.17854 3.1205 7.05604 3.37891C6.94521 3.63733 6.85596 3.90158 6.78304 4.15825C6.64479 4.67275 6.58296 5.16158 6.55904 5.57983C6.53921 5.99866 6.55087 6.34691 6.57537 6.59891C6.58412 6.71791 6.60046 6.83341 6.61212 6.91333L6.62671 7.01133L6.64187 7.00783C6.74563 7.49248 6.98447 7.93786 7.33077 8.29243C7.67707 8.64701 8.11668 8.89631 8.59875 9.01148C9.08081 9.12665 9.58563 9.10299 10.0548 8.94323C10.524 8.78348 10.9384 8.49416 11.25 8.10874C11.5616 7.72333 11.7577 7.25757 11.8157 6.76534C11.8737 6.27311 11.7911 5.77452 11.5775 5.32726C11.364 4.88 11.0282 4.50233 10.6089 4.23796C10.1897 3.97358 9.70417 3.8333 9.20854 3.83333V3.83333Z"
-                          className="fill-emerald-50"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  {/*                    <!-- End Testimonial --> */}
-                </div>
-              </li>
-            </ul>
+            {courses.map((item, index) => (
+              <button
+                key={item.title}
+                id={`course-tab-${index}`}
+                type="button"
+                role="tab"
+                aria-selected={activeCourse === index}
+                aria-controls="course-panel"
+                onClick={() => setActiveCourse(index)}
+                className={`rounded border px-4 py-2 text-sm font-semibold ${activeCourse === index
+                    ? 'border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--color-on-forest)]'
+                    : 'border-[var(--color-border)] bg-transparent text-ink hover:bg-canvas'
+                  }`}
+              >
+                {item.title}
+              </button>
+            ))}
           </div>
-          
           <div
-            className="flex items-center justify-center w-full gap-2 pt-6"
-            data-glide-el="controls[nav]"
+            id="course-panel"
+            role="tabpanel"
+            aria-labelledby={`course-tab-${activeCourse}`}
+            className="grid overflow-hidden rounded border border-[var(--color-border)] bg-canvas md:grid-cols-[minmax(0,0.9fr)_1.1fr]"
           >
-            <button
-              className="p-4 group"
-              data-glide-dir="=0"
-              aria-label="goto slide 1"
-            >
-              <span className="block w-2 h-2 transition-colors duration-300 rounded-full bg-white/20 opacity-70 ring-1 ring-slate-700 focus:outline-none"></span>
-            </button>
-            <button
-              className="p-4 group"
-              data-glide-dir="=1"
-              aria-label="goto slide 2"
-            >
-              <span className="block w-2 h-2 transition-colors duration-300 rounded-full bg-white/20 opacity-70 ring-1 ring-slate-700 focus:outline-none"></span>
-            </button>
-            <button
-              className="p-4 group"
-              data-glide-dir="=2"
-              aria-label="goto slide 3"
-            >
-              <span className="block w-2 h-2 transition-colors duration-300 rounded-full bg-white/20 opacity-70 ring-1 ring-slate-700 focus:outline-none"></span>
-            </button>
+            <div className="aspect-[4/3] min-h-56 bg-[var(--color-surface-raised)] md:aspect-auto">
+              <img
+                src={course.image}
+                alt={`${course.title} practice`}
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div className="flex flex-col items-start justify-center p-6 sm:p-10">
+              <h3 className="text-2xl font-semibold sm:text-3xl">
+                {course.title}
+              </h3>
+              <p className="mt-4 max-w-xl leading-7 text-muted">
+                {course.description}
+              </p>
+              <Link
+                href="/events"
+                className="mt-7 inline-flex items-center rounded bg-[var(--color-primary)] px-5 py-3 font-semibold text-[var(--color-on-forest)] hover:opacity-90"
+              >
+                Find a class{' '}
+                <span className="ml-3" aria-hidden="true">
+                  →
+                </span>
+              </Link>
+            </div>
           </div>
         </div>
+      </section>
 
-      </div>
-    </>
-  )
+      <section className="mx-auto grid max-w-7xl items-center gap-8 px-5 py-16 sm:px-8 md:grid-cols-2 md:py-20">
+        <div className="overflow-hidden rounded border border-[var(--color-border)] bg-[var(--color-surface-raised)]">
+          <img
+            src="/images/standing_teacher.jpg"
+            alt="Aum Yoga instructor"
+            loading="lazy"
+            className="max-h-[34rem] w-full object-cover object-top"
+          />
+        </div>
+        <div>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand">
+            Guidance for your practice
+          </p>
+          <h2 className="text-3xl font-semibold sm:text-4xl">
+            Meet your trainer
+          </h2>
+          <h3 className="mt-6 text-xl font-semibold">Aryan Vedanta</h3>
+          <p className="mt-3 leading-7 text-muted">
+            A certified yoga trainer with over 10 years of experience in
+            mindfulness, flexibility, and holistic health. His practice includes
+            Hatha Yoga, Vinyasa Flow, and meditation.
+          </p>
+          <p className="mt-3 leading-7 text-muted">
+            The aim is simple: help each person build a healthier, more balanced
+            practice at their own pace.
+          </p>
+        </div>
+      </section>
+
+      <section className="bg-[var(--color-forest)] px-5 py-14 text-center text-[var(--color-on-forest)] sm:px-8 md:py-16">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-primary)]">
+          A small step, a steady practice
+        </p>
+        <h2 className="mx-auto mt-4 max-w-3xl text-3xl font-semibold sm:text-4xl">
+          Find a class that fits your day.
+        </h2>
+        <Link
+          href="/events"
+          className="mt-7 inline-flex rounded bg-surface px-6 py-3 font-semibold text-ink hover:opacity-90"
+        >
+          Browse classes
+        </Link>
+      </section>
+    </main>
+  );
 }
-
-export default Intro

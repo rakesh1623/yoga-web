@@ -5,7 +5,7 @@ const Footer = () => {
 
     return (
         <footer
-            className=" bg-footcolor mt-8  text-white   lg:text-left">
+            className="mt-8 bg-[var(--color-forest)] text-[var(--color-on-forest)] lg:text-left">
             <div
                 className="flex items-center justify-center border-b-2 border-black p-6  lg:justify-between">
                 <div className="mr-12 hidden lg:block text-white">
@@ -29,31 +29,31 @@ const Footer = () => {
             </div>
 
             <h1 className='text-center my-4 text-white text-xl md:text-2xl font-bold md:font-semibold  '>Aum Yoga</h1>
-            <div className="fmain flex flex-col md:flex-row flex-wrap  px-3 md:px-10 w-fit justify-start m-auto ">
+            <div className="fmain mx-auto grid w-full max-w-7xl grid-cols-1 gap-10 px-5 pb-8 md:px-10 lg:grid-cols-[minmax(220px,1fr)_2fr]">
                 <div className="first ">
                     <div className="intro">
-                        <p className='md:w-1/3 text-white w-full md:justify-center md:items-center text-lg text-center'>
+                        <p className="max-w-sm text-center text-base leading-7 text-white/85 md:text-left">
                             Join us on a transformative yoga journey to discover inner peace, strength, and mindfulness <span className='font-bold'>Namaste</span>
                         </p>
                     </div>
                 </div>
-                <div className="second flex flex-col md:flex-row md:mx-auto  space-y-5 md:space-y-0 md:space-x-10">
+                <div className="second grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
 
                     <div className="products flex flex-col space-y-1">
                         <h1 className='text-white font-bold'>CLASSES</h1>
-                        <div style={{ 'transition': ' 0.5s' }} className="pcon cursor-pointer  flex items-center hover:translate-x-2">
+                        <div className="pcon flex items-center transition-transform hover:translate-x-1">
                             <img src="/images/footarrow2.png" className='h-7 invert' alt="" />
                             <Link href={'/product/fat-loss-and-tone'}> <p className='text-white'>Fat Loss and Toning Evening</p></Link>
                         </div>
-                        <div style={{ 'transition': ' 0.5s' }} className="pcon  cursor-pointer flex items-center hover:translate-x-2">
+                        <div className="pcon flex items-center transition-transform hover:translate-x-1">
                             <img src="/images/footarrow2.png" className='h-7 invert' alt="" />
                             <Link href={'/product/general-yoga-evening'}><p className='text-white'>General Yoga Evening</p></Link>
                         </div>
-                        <div style={{ 'transition': ' 0.5s' }} className="pcon cursor-pointer  flex items-center hover:translate-x-2">
+                        <div className="pcon flex items-center transition-transform hover:translate-x-1">
                             <img src="/images/footarrow2.png" className='h-7 invert' alt="" />
                             <Link href={'/product/sunrise-yoga'}> <p className='text-white'>Sunrise Yoga</p></Link>
                         </div>
-                        <div style={{ 'transition': ' 0.5s' }} className="pcon  cursor-pointer flex items-center hover:translate-x-2">
+                        <div className="pcon flex items-center transition-transform hover:translate-x-1">
                             <img src="/images/footarrow2.png" className='h-7 invert' alt="" />
                             <Link href={'/product/personal-one-to-one-counselling'}> <p className='text-white'>Personal one to one Yoga</p></Link>
                         </div>
@@ -62,20 +62,20 @@ const Footer = () => {
 
                     <div className="products flex flex-col space-y-1">
                         <h1 className='text-white font-bold'>USEFUL LINKS</h1>
-                        <Link href={'/about'}><div style={{ 'transition': ' 0.5s' }} className="pcon  cursor-pointer flex items-center hover:translate-x-2">
+                        <Link href={'/about'}><div className="pcon flex items-center transition-transform hover:translate-x-1">
                             <img src="/images/footarrow2.png" className='h-7 invert' alt="" />
                             <p className='text-white'>About Us</p>
                         </div></Link>
 
-                        <Link href={'/contact'}> <div style={{ 'transition': ' 0.5s' }} className="pcon cursor-pointer flex items-center hover:translate-x-2">
+                        <Link href={'/contact'}> <div className="pcon flex items-center transition-transform hover:translate-x-1">
                             <img src="/images/footarrow2.png" className='h-7 invert' alt="" />
                             <p className='text-white'>Contact</p>
                         </div></Link>
 
-                        <div style={{ 'transition': ' 0.5s' }} className="pcon cursor-pointer flex items-center hover:translate-x-2">
+                        <Link href={'/contact'} className="pcon flex items-center transition-transform hover:translate-x-1">
                             <img src="/images/footarrow2.png" className='h-7 invert' alt="" />
                             <p className='text-white'>Help</p>
-                        </div>
+                        </Link>
                     </div>
 
 
@@ -153,10 +153,7 @@ const Footer = () => {
 
             <div className="  p-6 text-center ">
                 <span className='text-white'>© 2026 Copyright:</span>
-                <a
-                    className="font-semibold text-white"
-                    href="https://tailwind-elements.com/"
-                >Aum Yoga </a>
+                <Link className="font-semibold text-white" href="/">Aum Yoga</Link>
             </div>
         </footer>
     )

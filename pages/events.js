@@ -6,35 +6,32 @@ import dbConnect from '@/lib/dbConnect';
 
 const Events = ({ products }) => {
     return (
-        <main className="min-h-screen bg-[#faf8f3] text-[#263b2f]">
+        <main className="min-h-screen bg-canvas text-ink">
 
             {/* Hero Section */}
             <section className="relative overflow-hidden px-6 pt-20 pb-16 md:pt-28 md:pb-24">
-                <div className="absolute -top-24 -right-20 w-80 h-80 bg-[#e9e5d5] rounded-full blur-3xl opacity-60" />
-                <div className="absolute bottom-0 -left-20 w-72 h-72 bg-[#dce8dc] rounded-full blur-3xl opacity-60" />
-
                 <div className="relative max-w-5xl mx-auto text-center">
-                    <span className="inline-block rounded-full border border-[#c8d4c6] px-5 py-2 text-xs tracking-[0.25em] uppercase text-[#647b64] font-semibold mb-7">
+                    <span className="mb-7 inline-block rounded border border-[var(--color-border)] px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted">
                         Find Your Inner Balance
                     </span>
 
                     <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl leading-tight tracking-tight">
                         Make Space for
-                        <span className="block italic text-[#8b9d78]">
+                        <span className="block italic text-brand">
                             Yourself.
                         </span>
                     </h1>
 
-                    <p className="max-w-2xl mx-auto mt-7 text-base md:text-lg leading-8 text-[#718071]">
+                    <p className="mx-auto mt-7 max-w-2xl text-base leading-8 text-muted md:text-lg">
                         Discover thoughtfully designed yoga programs that
                         bring movement, mindfulness and balance into your
                         everyday life.
                     </p>
 
-                    <div className="mt-9 flex justify-center items-center gap-3 text-sm text-[#718071]">
-                        <span className="w-10 h-px bg-[#a9b69e]" />
+                    <div className="mt-9 flex items-center justify-center gap-3 text-sm text-muted">
+                        <span className="h-px w-10 bg-[var(--color-border)]" />
                         Explore Our Programs
-                        <span className="w-10 h-px bg-[#a9b69e]" />
+                        <span className="h-px w-10 bg-[var(--color-border)]" />
                     </div>
                 </div>
             </section>
@@ -45,7 +42,7 @@ const Events = ({ products }) => {
 
                     <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
                         <div>
-                            <p className="text-xs tracking-[0.25em] uppercase text-[#8b9d78] font-semibold mb-3">
+                            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand">
                                 Our Offerings
                             </p>
                             <h2 className="font-serif text-3xl md:text-4xl">
@@ -53,17 +50,17 @@ const Events = ({ products }) => {
                             </h2>
                         </div>
 
-                        <p className="text-sm text-[#879083]">
+                        <p className="text-sm text-muted">
                             Find a program that feels right for you.
                         </p>
                     </div>
 
                     {products.length === 0 ? (
-                        <div className="text-center py-20 rounded-3xl bg-white border border-[#e9e6dc]">
+                        <div className="rounded border border-[var(--color-border)] bg-surface py-20 text-center">
                             <p className="font-serif text-2xl">
                                 New experiences are coming soon.
                             </p>
-                            <p className="text-[#879083] mt-3">
+                            <p className="mt-3 text-muted">
                                 Please check back later.
                             </p>
                         </div>
@@ -72,10 +69,10 @@ const Events = ({ products }) => {
                             {products.map((item) => (
                                 <article
                                     key={item.slug}
-                                    className="group bg-white rounded-2xl overflow-hidden border border-[#ebe8df] shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500"
+                                    className="group overflow-hidden rounded border border-[var(--color-border)] bg-surface shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                                 >
                                     {/* Image */}
-                                    <div className="relative overflow-hidden aspect-[4/4.2] bg-[#eeeae0]">
+                                    <div className="relative aspect-[4/4.2] overflow-hidden bg-[var(--color-canvas)]">
                                         <img
                                             src={item.img}
                                             alt={item.title || "Yoga class"}
@@ -85,31 +82,31 @@ const Events = ({ products }) => {
 
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-70" />
 
-                                        <span className="absolute top-5 left-5 rounded-full bg-white/90 backdrop-blur-sm px-4 py-2 text-[10px] uppercase tracking-[0.2em] font-semibold text-[#536c54]">
+                                        <span className="absolute left-5 top-5 rounded bg-surface/90 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.15em] text-brand backdrop-blur-sm">
                                             Yoga Program
                                         </span>
                                     </div>
 
                                     {/* Card Content */}
                                     <div className="p-6 md:p-7">
-                                        <h3 className="font-serif text-2xl text-[#263b2f] group-hover:text-[#849875] transition-colors duration-300">
+                                        <h3 className="font-serif text-2xl text-ink transition-colors duration-300 group-hover:text-brand">
                                             {item.title}
                                         </h3>
 
-                                        <p className="mt-3 text-sm leading-7 text-[#899187] line-clamp-2">
+                                        <p className="mt-3 line-clamp-2 text-sm leading-7 text-muted">
                                             {item.desc || "Explore this yoga program and begin your journey towards a healthier, more balanced lifestyle."}
                                         </p>
 
-                                        <div className="mt-7 pt-5 border-t border-[#eeeae2]">
+                                        <div className="mt-7 border-t border-[var(--color-border)] pt-5">
                                             <Link
                                                 href={`product/${item.slug}`}
                                                 className="flex items-center justify-between group/link"
                                             >
-                                                <span className="text-xs font-bold uppercase tracking-[0.18em] text-[#536c54]">
+                                                <span className="text-xs font-bold uppercase tracking-[0.15em] text-brand">
                                                     Explore Program
                                                 </span>
 
-                                                <span className="w-10 h-10 rounded-full bg-[#edf1e8] flex items-center justify-center text-[#536c54] group-hover/link:bg-[#536c54] group-hover/link:text-white transition-all duration-300">
+                                                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-canvas)] text-brand transition-all duration-300 group-hover/link:bg-[var(--color-primary)] group-hover/link:text-white">
                                                     →
                                                 </span>
                                             </Link>
@@ -123,8 +120,8 @@ const Events = ({ products }) => {
             </section>
 
             {/* Bottom CTA */}
-            <section className="bg-[#344c3b] px-6 py-16 md:py-20 text-center text-white">
-                <p className="text-xs tracking-[0.3em] uppercase text-[#c2d0b7] mb-5">
+            <section className="bg-[var(--color-forest)] px-6 py-16 text-center text-[var(--color-on-forest)] md:py-20">
+                <p className="mb-5 text-xs uppercase tracking-[0.2em] text-[var(--color-primary)]">
                     Your Journey Starts Here
                 </p>
 
@@ -132,7 +129,7 @@ const Events = ({ products }) => {
                     A healthier you begins with one step.
                 </h2>
 
-                <p className="mt-5 max-w-xl mx-auto text-sm md:text-base leading-7 text-[#d0d9cc]">
+                <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-muted md:text-base">
                     Take a moment for yourself. Find your practice,
                     embrace the process and let wellness become a way of life.
                 </p>

@@ -20,7 +20,7 @@ const Orders = () => {
         })
 
       let res = await data.json();
-      setAllOrders(res.orders)
+      setAllOrders(res.orders || [])
     }
 
     if (!localStorage.getItem('token')) {
@@ -31,38 +31,40 @@ const Orders = () => {
   }, [])
   return (
     <>
-      <h1 className='text-center text-xl md:text-4xl mt-10'>Your Orders</h1>
+      <main className="min-h-[65vh] bg-canvas px-4 py-12 text-ink sm:px-6">
+        <h1 className="mb-8 text-center text-3xl font-semibold md:text-4xl">Your Orders</h1>
 
-      <div className="flex flex-col">
-        <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-            <div className="overflow-hidden">
-              <table className="min-w-full text-left text-sm font-light">
-                <thead className="border-b font-medium ">
-                  <tr>
-                    <th scope="col" className="px-6 py-4">#</th>
-                    <th scope="col" className="px-6 py-4">Name</th>
-                    <th scope="col" className="px-6 py-4">Amount</th>
-                    <th scope="col" className="px-6 py-4">Details</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {allOrders.map((item) => {
-
-                    return <tr key={item._id} className="border-b transition duration-300 ease-in-out ">
-                      <td className="whitespace-nowrap px-6 py-4 font-medium">{item.orderId}</td>
-                      <td className="whitespace-nowrap px-6 py-4">{item.name}</td>
-                      <td className="whitespace-nowrap px-6 py-4">₹{item.amount}</td>
-                      <Link href={'/order?id='+ item._id} ><td className="whitespace-nowrap underline text-blue-600 font-semibold px-6 py-4">details</td></Link>
+        <div className="flex flex-col">
+          <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+              <div className="overflow-hidden">
+                <table className="min-w-full overflow-hidden rounded border border-[var(--color-border)] bg-surface text-left text-sm">
+                  <thead className="border-b border-[var(--color-border)] bg-[var(--color-forest)] font-semibold text-[var(--color-on-forest)]">
+                    <tr>
+                      <th scope="col" className="px-6 py-4">#</th>
+                      <th scope="col" className="px-6 py-4">Name</th>
+                      <th scope="col" className="px-6 py-4">Amount</th>
+                      <th scope="col" className="px-6 py-4">Details</th>
                     </tr>
+                  </thead>
+                  <tbody>
+                    {allOrders.map((item) => {
 
-                  })}
-                </tbody>
-              </table>
+                      return <tr key={item._id} className="border-b border-[var(--color-border)] transition hover:bg-[var(--color-canvas)]">
+                        <td className="whitespace-nowrap px-6 py-4 font-medium">{item.orderId}</td>
+                        <td className="whitespace-nowrap px-6 py-4">{item.name}</td>
+                        <td className="whitespace-nowrap px-6 py-4">₹{item.amount}</td>
+                        <td className="whitespace-nowrap px-6 py-4"><Link href={'/order?id=' + item._id} className="font-semibold text-brand underline underline-offset-2">View details</Link></td>
+                      </tr>
+
+                    })}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </main>
 
     </>
   )

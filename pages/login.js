@@ -62,7 +62,7 @@ const Login = () => {
   };
 
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-screen overflow-hidden">
+    <main className="relative flex min-h-[65vh] flex-col items-center justify-center overflow-hidden bg-canvas px-4 py-10 text-ink">
       <ToastContainer
         position="top-center"
         autoClose={1000}
@@ -75,10 +75,10 @@ const Login = () => {
         pauseOnHover
         theme="light"
       />
-      <div className="w-full p-6 bg-white rounded-md shadow-md lg:max-w-xl">
-        <h1 className="text-center my-5 text-3xl font-bold">Login Page</h1>
+      <div className="w-full max-w-md rounded border border-[var(--color-border)] bg-surface p-6 shadow-sm sm:p-8">
+        <h1 className="my-5 text-center text-3xl font-bold">Welcome back</h1>
         <div className="logimg flex justify-center items-center">
-          <img src="images/logo2.png" className="h-72" alt="Logo" />
+          <img src="/images/logo2.png" className="h-28 w-auto object-contain" alt="Aum Yoga" />
         </div>
         <form onSubmit={handleSubmit} method="POST" className="mt-6">
           <div className="mb-4">
@@ -91,6 +91,8 @@ const Login = () => {
             <input
               id="email"
               name="email"
+              required
+              autoComplete="email"
               value={email}
               onChange={handleChange}
               type="email"
@@ -107,6 +109,8 @@ const Login = () => {
             <input
               id="password"
               name="password"
+              required
+              autoComplete="current-password"
               value={password}
               onChange={handleChange}
               type="password"
@@ -166,7 +170,7 @@ const Login = () => {
           </Link>
         </p>
       </div>
-    </div>
+    </main>
   );
 };
 

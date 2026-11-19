@@ -51,7 +51,8 @@ const SignUp = () => {
           autoClose: 1000,
         });
       } else {
-        toast.error(response.message || 'Failed to send OTP', {
+
+        toast.error(response.message || response.msg || response.error || 'Failed to send OTP', {
           position: 'top-center',
         });
       }
@@ -67,17 +68,17 @@ const SignUp = () => {
 
       const response = await res.json();
       setLoading(false);
-      
+
       if (response.success) {
         localStorage.setItem('token', response.token); // Store the token
-      toast.success('Account created successfully!', {
-        position: 'top-center',
-        autoClose: 1000,
-      });
+        toast.success('Account created successfully!', {
+          position: 'top-center',
+          autoClose: 1000,
+        });
 
-      setTimeout(() => {
-        router.push('/'); // Redirect to home
-      }, 900);
+        setTimeout(() => {
+          router.push('/'); // Redirect to home
+        }, 900);
       } else {
         alert('OTP verification failed');
       }
@@ -85,12 +86,12 @@ const SignUp = () => {
   };
 
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-screen overflow-hidden">
+    <main className="relative flex min-h-[65vh] flex-col items-center justify-center overflow-hidden bg-canvas px-4 py-10 text-ink">
       <ToastContainer />
-      <div className="w-full p-6 bg-white rounded-md shadow-md lg:max-w-xl">
-        <h1 className="text-center my-5 text-3xl font-bold">Sign Up Page</h1>
+      <div className="w-full max-w-md rounded border border-[var(--color-border)] bg-surface p-6 shadow-sm sm:p-8">
+        <h1 className="my-5 text-center text-3xl font-bold">Create your account</h1>
         <div className="logimg flex justify-center items-center">
-          <img src="images/logo2.png" className="h-72" alt="" />
+          <img src="/images/logo2.png" className="h-28 w-auto object-contain" alt="Aum Yoga" />
         </div>
         <form onSubmit={handleSubmit} method="POST" className="mt-6">
           {step === 1 && (
@@ -114,6 +115,8 @@ const SignUp = () => {
                 </label>
                 <input
                   name="email"
+                  id="email"
+                  required
                   value={email}
                   onChange={handleChange}
                   type="email"
@@ -126,6 +129,8 @@ const SignUp = () => {
                 </label>
                 <input
                   name="password"
+                  id="password"
+                  required
                   value={password}
                   onChange={handleChange}
                   type="password"
@@ -189,7 +194,7 @@ const SignUp = () => {
           </Link>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

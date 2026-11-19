@@ -1,63 +1,118 @@
-import React from 'react'
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { AiOutlineShoppingCart } from 'react-icons/ai'
+import { AiOutlineShoppingCart, AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import { FiMoon, FiSun } from 'react-icons/fi';
 // import Image from 'next/image';
 
-const Navbar = ({ user, logout, cart }) => {
-
-
+const Navbar = ({ user, logout, cart, theme = 'light', onToggleTheme }) => {
   const [dropdown, setDropdown] = useState(false);
-
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <>
-      <div className="catch  flex flex-col justify-center md:space-x-16 md:flex-row">
+    <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-ink)]">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between px-4 py-3 md:flex-nowrap md:px-6">
+        <Link href="/" className="flex items-center" onClick={() => setMenuOpen(false)}>
+          <img src="/images/logo3.png" className="mr-3 h-10 md:h-14" alt="Aum Yoga" />
+          <span className="text-xl font-bold md:text-2xl">Aum Yoga</span>
+        </Link>
 
+        <button
+          type="button"
+          className="inline-flex h-11 w-11 items-center justify-center rounded border border-gray-300 text-2xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-600 md:hidden"
+          aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={menuOpen}
+          aria-controls="main-navigation"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? <AiOutlineClose aria-hidden="true" /> : <AiOutlineMenu aria-hidden="true" />}
+        </button>
 
-        <a className="flex title-font justify-center md:justify-start font-medium items-center text-gray-900 mb-4 md:mb-0">
+        <div
+          id="main-navigation"
+          className={`${menuOpen ? 'flex' : 'hidden'} w-full flex-col gap-3 pt-4 md:flex md:w-auto md:flex-row md:items-center md:gap-6 md:pt-0`}
+        >
+          <nav className="flex flex-col gap-1 md:flex-row md:items-center md:gap-2" aria-label="Main navigation">
+            {[
+              ['Home', '/'],
+              ['About', '/about'],
+              ['Classes', '/events'],
+              ['Contact', '/contact'],
+            ].map(([label, href]) => (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setMenuOpen(false)}
+                className="rounded px-3 py-2 font-semibold hover:bg-[var(--color-canvas)] hover:text-[var(--color-primary)]"
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
 
-          <img src="/images/logo3.png" className='h-10 md:h-20 mr-3' alt="" />
-
-          <span className="font-bold text-xl md:text-3xl">Aum Yoga</span>
-        </a>
-        <header className="text-gray-600 body-font border-b-2 sticky flex flex-col md:flex-row  top-0 z-10 bg-white">
-          <div className=" mx-3 flex md:space-x-8 space-x-2  items-center text-base justify-center">
-            <Link href="/"><button className="hover:cursor-pointer  w-fit text-base  lg:text-xl hover:text-gray-900 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Home</button></Link>
-            <Link href="/about"><button className="hover:cursor-pointer  w-fit text-base  lg:text-xl hover:text-gray-900 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">About</button></Link>
-            <Link href="/events"><button className="hover:cursor-pointer  w-fit text-base  lg:text-xl hover:text-gray-900 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Classes</button></Link>
-            <Link href="/contact"><button className="hover:cursor-pointer  w-fit text-base  lg:text-xl hover:text-gray-900 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Contact</button></Link>
-
-          </div>
-
-          <div className="side justify-center mt-5 items-center flex space-x-3 ml-2">
-            {!user.value && <Link href="/login"> <button className="inline-flex mb-2 items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base ">LOGIN
-              <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 ml-1" viewBox="0 0 24 24">
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
+          <div className="flex items-center gap-4 border-t border-[var(--color-border)] pt-3 md:border-0 md:pt-0">
+            <button
+              type="button"
+              onClick={onToggleTheme}
+              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+              title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+              className="flex h-10 w-10 items-center justify-center rounded-full hover:bg-[var(--color-canvas)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
+            >
+              {theme === 'dark' ? <FiSun className="text-xl" aria-hidden="true" /> : <FiMoon className="text-xl" aria-hidden="true" />}
             </button>
-            </Link>}
+            {!user?.value && (
+              <Link
+                href="/login"
+                onClick={() => setMenuOpen(false)}
+                className="inline-flex items-center rounded bg-gray-100 px-4 py-2 font-semibold hover:bg-gray-200"
+              >
+                LOGIN
+                <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="ml-2 h-4 w-4" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </Link>
+            )}
 
-            {user.value && <div onMouseOver={() => { setDropdown(true) }} onMouseLeave={() => { setDropdown(false) }}>
-              <img src="/images/user.png" className='h-6 ' alt="" />
-              {dropdown && <ul className=' w-36 absolute bg-emerald-600 text-white rounded-lg top-12 right-12 text-left px-3 py-2'>
-                <Link href={'/myAccount'}><li className='hover:text-black hover:cursor-pointer'>My Account</li></Link>
-                <Link href={'/orders'}><li className='hover:text-black hover:cursor-pointer'>Orders</li></Link>
-                <li onClick={logout} className='hover:text-black hover:cursor-pointer'>Logout</li>
-              </ul>}
-            </div>}
+            {user?.value && (
+              <div className="relative">
+                <button
+                  type="button"
+                  aria-label="Account menu"
+                  aria-expanded={dropdown}
+                  onClick={() => setDropdown(!dropdown)}
+                  onBlur={(event) => {
+                    if (!event.currentTarget.parentElement.contains(event.relatedTarget)) setDropdown(false);
+                  }}
+                  className="flex h-10 w-10 items-center justify-center rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-600"
+                >
+                  <img src="/images/user.png" className="h-6" alt="" />
+                </button>
+                {dropdown && (
+                  <ul className="absolute right-0 top-12 z-50 w-36 rounded bg-emerald-700 px-3 py-2 text-left text-white shadow-lg">
+                    <li><Link href="/myAccount" onClick={() => setMenuOpen(false)} className="block py-1 hover:text-black">My Account</Link></li>
+                    <li><Link href="/orders" onClick={() => setMenuOpen(false)} className="block py-1 hover:text-black">Orders</Link></li>
+                    <li><button type="button" onClick={logout} className="py-1 hover:text-black">Logout</button></li>
+                  </ul>
+                )}
+              </div>
+            )}
 
-            {user.value && <Link className='' href={'/cart'}> <div className="cartCount mb-3">
-              <p className='relative top-3 left-4 bg-blue-700 text-white text-sm px-2 rounded-full -z-50' >{Object.keys(cart).length}</p>
-              <AiOutlineShoppingCart className=' text-2xl ' />
-            </div></Link>}
+            {user?.value && (
+              <Link
+                href="/cart"
+                onClick={() => setMenuOpen(false)}
+                aria-label={`Cart, ${Object.keys(cart || {}).length} items`}
+                className="relative flex h-10 w-10 items-center justify-center rounded hover:bg-gray-100"
+              >
+                <AiOutlineShoppingCart className="text-2xl" aria-hidden="true" />
+                <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-blue-700 px-1 text-xs text-white">
+                  {Object.keys(cart || {}).length}
+                </span>
+              </Link>
+            )}
           </div>
-        </header>
+        </div>
       </div>
-
-
-
-    </>
+    </header>
   )
 }
 
