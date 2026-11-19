@@ -16,16 +16,27 @@ const Navbar = ({ user, logout, cart, theme = 'light', onToggleTheme }) => {
           <span className="text-xl font-bold md:text-2xl">Aum Yoga</span>
         </Link>
 
-        <button
-          type="button"
-          className="inline-flex h-11 w-11 items-center justify-center rounded border border-gray-300 text-2xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-600 md:hidden"
-          aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-          aria-expanded={menuOpen}
-          aria-controls="main-navigation"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          {menuOpen ? <AiOutlineClose aria-hidden="true" /> : <AiOutlineMenu aria-hidden="true" />}
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <button
+            type="button"
+            onClick={onToggleTheme}
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+            title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+            className="flex h-11 w-11 items-center justify-center rounded border border-[var(--color-border)] text-xl hover:bg-[var(--color-canvas)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
+          >
+            {theme === 'dark' ? <FiSun aria-hidden="true" /> : <FiMoon aria-hidden="true" />}
+          </button>
+          <button
+            type="button"
+            className="inline-flex h-11 w-11 items-center justify-center rounded border border-[var(--color-border)] text-2xl hover:bg-[var(--color-canvas)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
+            aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={menuOpen}
+            aria-controls="main-navigation"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            {menuOpen ? <AiOutlineClose aria-hidden="true" /> : <AiOutlineMenu aria-hidden="true" />}
+          </button>
+        </div>
 
         <div
           id="main-navigation"
@@ -55,7 +66,7 @@ const Navbar = ({ user, logout, cart, theme = 'light', onToggleTheme }) => {
               onClick={onToggleTheme}
               aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
               title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
-              className="flex h-10 w-10 items-center justify-center rounded-full hover:bg-[var(--color-canvas)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
+              className="hidden h-10 w-10 items-center justify-center rounded-full hover:bg-[var(--color-canvas)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] md:flex"
             >
               {theme === 'dark' ? <FiSun className="text-xl" aria-hidden="true" /> : <FiMoon className="text-xl" aria-hidden="true" />}
             </button>

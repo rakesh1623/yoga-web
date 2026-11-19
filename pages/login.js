@@ -31,30 +31,38 @@ const Login = () => {
     setLoading(true);
     const data = { email, password };
 
-    const res = await fetch('api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-
-    const response = await res.json();
-    setLoading(false);
-
-    if (response.success) {
-      localStorage.setItem('token', response.token);
-      setEmail('');
-      setPassword('');
-      toast.success('Successfully logged in', {
-        position: 'top-center',
-        autoClose: 1000,
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
       });
-      setTimeout(() => {
-        router.push('/');
-      }, 500);
-    } else {
-      toast.error('Invalid Credentials', {
+
+      const response = await res.json();
+      setLoading(false);
+
+      if (response.success) {
+        localStorage.setItem('token', response.token);
+        setEmail('');
+        setPassword('');
+        toast.success('Successfully logged in', {
+          position: 'top-center',
+          autoClose: 1000,
+        });
+        setTimeout(() => {
+          router.push('/');
+        }, 500);
+      } else {
+        toast.error(response.error || 'Invalid Credentials', {
+          position: 'top-center',
+          autoClose: 1000,
+        });
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error('Unable to reach the login service', {
         position: 'top-center',
         autoClose: 1000,
       });

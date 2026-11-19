@@ -18,7 +18,7 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
-    const preferredTheme = savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const preferredTheme = savedTheme || 'light';
     setTheme(preferredTheme);
     document.documentElement.dataset.theme = preferredTheme;
     document.documentElement.classList.toggle('dark', preferredTheme === 'dark');

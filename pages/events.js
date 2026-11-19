@@ -106,7 +106,7 @@ const Events = ({ products }) => {
                                                     Explore Program
                                                 </span>
 
-                                                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-canvas)] text-brand transition-all duration-300 group-hover/link:bg-[var(--color-primary)] group-hover/link:text-white">
+                                                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-canvas)] text-brand transition-all duration-300 group-hover/link:bg-[var(--color-primary)] group-hover/link:text-[var(--color-on-primary)]">
                                                     →
                                                 </span>
                                             </Link>

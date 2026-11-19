@@ -114,8 +114,8 @@ export default function Intro() {
                 aria-controls="course-panel"
                 onClick={() => setActiveCourse(index)}
                 className={`rounded border px-4 py-2 text-sm font-semibold ${activeCourse === index
-                    ? 'border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--color-on-forest)]'
-                    : 'border-[var(--color-border)] bg-transparent text-ink hover:bg-canvas'
+                  ? 'border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--color-on-primary)]'
+                  : 'border-[var(--color-border)] bg-transparent text-ink hover:bg-canvas'
                   }`}
               >
                 {item.title}
@@ -144,7 +144,7 @@ export default function Intro() {
               </p>
               <Link
                 href="/events"
-                className="mt-7 inline-flex items-center rounded bg-[var(--color-primary)] px-5 py-3 font-semibold text-[var(--color-on-forest)] hover:opacity-90"
+                className="mt-7 inline-flex items-center rounded bg-[var(--color-primary)] px-5 py-3 font-semibold text-[var(--color-on-primary)] hover:opacity-90"
               >
                 Find a class{' '}
                 <span className="ml-3" aria-hidden="true">
