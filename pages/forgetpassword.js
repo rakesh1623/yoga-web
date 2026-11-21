@@ -6,6 +6,7 @@ import dbConnect from "@/lib/dbConnect";
 import { useRouter } from 'next/router';
 
 import { ToastContainer, toast } from 'react-toastify';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Forgetpassword = ({ user }) => {
@@ -15,6 +16,8 @@ const Forgetpassword = ({ user }) => {
     const [password, setPassword] = useState('')
     const [cpassword, setCpassword] = useState('')
     const [change, setChange] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
     useEffect(() => {
 
@@ -189,28 +192,50 @@ const Forgetpassword = ({ user }) => {
                         >
                             Password
                         </label>
-                        <input
-                            id='password'
-                            type="password"
-                            name='password'
-                            onChange={handleChange}
-                            value={password}
-                            className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-green-400 focus:ring-green-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                        />
+                        <div className="relative mt-2">
+                            <input
+                                id='password'
+                                type={showPassword ? 'text' : 'password'}
+                                name='password'
+                                onChange={handleChange}
+                                value={password}
+                                className="block w-full rounded-md border bg-white px-4 py-2 pr-12 text-gray-700 focus:border-green-400 focus:outline-none focus:ring focus:ring-green-300 focus:ring-opacity-40"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword((visible) => !visible)}
+                                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                                title={showPassword ? 'Hide password' : 'Show password'}
+                                className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-400"
+                            >
+                                {showPassword ? <FiEyeOff aria-hidden="true" /> : <FiEye aria-hidden="true" />}
+                            </button>
+                        </div>
                         <label
                             htmlFor="cpassword"
                             className="block text-sm font-semibold text-gray-800"
                         >
                             Confirm Password
                         </label>
-                        <input
-                            id='cpassword'
-                            type="password"
-                            name='cpassword'
-                            onChange={handleChange}
-                            value={cpassword}
-                            className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-green-400 focus:ring-green-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                        />
+                        <div className="relative mt-2">
+                            <input
+                                id='cpassword'
+                                type={showConfirmPassword ? 'text' : 'password'}
+                                name='cpassword'
+                                onChange={handleChange}
+                                value={cpassword}
+                                className="block w-full rounded-md border bg-white px-4 py-2 pr-12 text-gray-700 focus:border-green-400 focus:outline-none focus:ring focus:ring-green-300 focus:ring-opacity-40"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowConfirmPassword((visible) => !visible)}
+                                aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
+                                title={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
+                                className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-400"
+                            >
+                                {showConfirmPassword ? <FiEyeOff aria-hidden="true" /> : <FiEye aria-hidden="true" />}
+                            </button>
+                        </div>
 
                         <div className="mt-2">
                             <button type='submit' className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
