@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import product from '@/models/product';
 import user from '@/models/user';
-import mongoose from "mongoose";
+import dbConnect from "@/lib/dbConnect";
 import { useRouter } from 'next/router';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Forgetpassword = ({ user }) => {
+    const router = useRouter()
+    const resetToken = router.query.token
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [cpassword, setCpassword] = useState('')
@@ -44,7 +46,7 @@ const Forgetpassword = ({ user }) => {
 
         if (emailRegex.test(email)) {
 
-            const res = await fetch("api/resetPassword", {
+            const res = await fetch("/api/resetPassword", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -66,7 +68,7 @@ const Forgetpassword = ({ user }) => {
                     theme: "light",
                 });
             } else {
-                toast.error('Unable to send password reset link', {
+                toast.error(response.msg || 'Unable to send password reset link', {
                     position: "top-center",
                     autoClose: 1000,
                     hideProgressBar: false,
@@ -87,15 +89,15 @@ const Forgetpassword = ({ user }) => {
         e.preventDefault()
 
         if ((password == cpassword) && password.length > 3 && cpassword.length > 3) {
-            const res = await fetch("api/forgetpassword", {
+            const res = await fetch("/api/forgetpassword", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ userEmail: email, password: password, cpassword: cpassword }),
+                body: JSON.stringify({ userEmail: email, password: password, cpassword: cpassword, resetToken }),
             });
             let response = await res.json()
-            if (response) {
+            if (response.success) {
                 setPassword('')
                 setCpassword('')
                 toast.success('Your password has been changed successfully', {
@@ -110,7 +112,7 @@ const Forgetpassword = ({ user }) => {
                 });
 
             } else {
-                toast.error('Unable to change your password', {
+                toast.error(response.msg || 'Unable to change your password', {
                     position: "top-center",
                     autoClose: 1000,
                     hideProgressBar: false,
@@ -237,11 +239,11 @@ const Forgetpassword = ({ user }) => {
 
 export async function getServerSideProps(context) {
 
-    if (!mongoose.connections[0].readyState) {
-        await mongoose.connect(process.env.MONGO_URI)
-    }
+    await dbConnect()
 
-    let u = await user.findOne({ token: context.query.token })
+    const u = context.query.token
+        ? await user.findOne({ token: context.query.token }).lean()
+        : null
 
     return {
         props: { user: JSON.parse(JSON.stringify(u)) },
